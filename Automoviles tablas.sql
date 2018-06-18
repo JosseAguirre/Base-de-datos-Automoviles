@@ -1,0 +1,38 @@
+CREATE DATABASE Automoviles DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+
+USE Automoviles;
+
+CREATE TABLE casaAutomotriz (
+ id INT NOT NULL AUTO_INCREMENT,
+ casaAutomotriz VARCHAR(60) NOT NULL,
+ PRIMARY KEY (id)
+ );
+ 
+ CREATE TABLE tipoAuto (
+ id INT NOT NULL AUTO_INCREMENT,
+ tipo VARCHAR(45) NOT NULL,
+ PRIMARY KEY (id)
+ );
+ 
+CREATE TABLE alimentacion (
+id INT NOT NULL AUTO_INCREMENT,
+alimentacion VARCHAR(30) NOT NULL,
+PRIMARY KEY (id)
+);
+ 
+ CREATE TABLE auto (
+ id INT NOT NULL AUTO_INCREMENT,
+ idCasaAutomotriz INT NOT NULL,
+ modelo VARCHAR(45) NOT NULL,
+ año INT NOT NULL,
+ idtipo VARCHAR(45) NOT NULL,
+ idalimentacion VARCHAR(45) NOT NULL,
+ PRIMARY KEY (id)
+ );
+ 
+CREATE TABLE costoAuto (
+id INT NOT NULL AUTO_INCREMENT,
+idAuto INT NOT NULL,
+costo INT NOT NULL,
+PRIMARY KEY (id)
+);
