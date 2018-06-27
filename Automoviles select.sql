@@ -24,3 +24,8 @@ ORDER BY auto.id DESC;
 SELECT casaAutomotriz.casaAutomotriz, auto.idCasaAutomotriz FROM casaAutomotriz
 INNER JOIN auto ON auto.idCasaAutomotriz = casaAutomotriz.id
 GROUP BY auto.idCasaAutomotriz = 2;
+
+/* EJEMPLO UNION
+SELECT casaautomotriz FROM casaautomotriz
+UNION
+SELECT alimentacion FROM alimentacion;*/

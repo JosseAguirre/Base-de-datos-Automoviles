@@ -25,8 +25,8 @@ PRIMARY KEY (id)
  idCasaAutomotriz INT NOT NULL,
  modelo VARCHAR(45) NOT NULL,
  año INT NOT NULL,
- idtipo VARCHAR(45) NOT NULL,
- idalimentacion VARCHAR(45) NOT NULL,
+ idtipo INT NOT NULL,
+ idalimentacion INT NOT NULL,
  PRIMARY KEY (id)
  );
  
@@ -36,3 +36,8 @@ idAuto INT NOT NULL,
 costo INT NOT NULL,
 PRIMARY KEY (id)
 );
+
+ALTER TABLE costoAuto ADD FOREIGN KEY (idAuto) REFERENCES Auto(id);
+ALTER TABLE auto ADD FOREIGN KEY (idtipo) REFERENCES tipoAuto(id);
+ALTER TABLE auto ADD FOREIGN KEY (idalimentacion) REFERENCES alimentacion(id);
+ALTER TABLE auto ADD FOREIGN KEY (idCasaAutomotriz) REFERENCES casaAutomotriz(id);
