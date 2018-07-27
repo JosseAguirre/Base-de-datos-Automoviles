@@ -1,0 +1,188 @@
+CREATE DATABASE Recuperacion DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+
+USE Recuperacion;
+
+CREATE TABLE Personas (
+id INT NOT NULL AUTO_INCREMENT,
+nombre VARCHAR(60) NOT NULL,
+apellido VARCHAR(60) NOT NULL,
+idRol INT NOT NULL,
+idGenero INT NOT NULL,
+idEstado INT NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE AlumnosCursos (
+id INT NOT NULL AUTO_INCREMENT,
+idPersona INT NOT NULL,
+idCurso INT NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE AlumnosRepeticion (
+id INT NOT NULL AUTO_INCREMENT,
+idPersona INT NOT NULL,
+repite BOOLEAN NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE Generos (
+id INT NOT NULL AUTO_INCREMENT,
+tipo VARCHAR(20) NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE Roles (
+id INT NOT NULL AUTO_INCREMENT,
+cargo VARCHAR(30) NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE Materias (
+id INT NOT NULL AUTO_INCREMENT,
+descripcion VARCHAR(60) NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE Cursos (
+id INT NOT NULL AUTO_INCREMENT,
+nivel VARCHAR(60) NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE Parciales (
+id INT NOT NULL AUTO_INCREMENT,
+parcial VARCHAR(60) NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE Notas (
+id INT NOT NULL AUTO_INCREMENT,
+idPersona INT NOT NULL,
+idMateria INT NOT NULL,
+calificacion INT NULL,
+idParcial INT NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE MateriasCurso (
+id INT NOT NULL AUTO_INCREMENT,
+idMateria INT NOT NULL,
+idCurso INT NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE DocenteMaterias (
+id INT NOT NULL AUTO_INCREMENT,
+idPersona INT NOT NULL,
+idMateria INT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE Cobros (
+id INT NOT NULL AUTO_INCREMENT,
+idPersona INT NOT NULL,
+idConcepto INT NOT NULL,
+fecha DATETIME NOT NULL,
+cantidad DECIMAL NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE Conceptos (
+id INT NOT NULL AUTO_INCREMENT,
+descripcion VARCHAR(30) NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE Estados (
+id INT NOT NULL AUTO_INCREMENT,
+descripcion VARCHAR(20) NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE Pagos (
+id INT NOT NULL AUTO_INCREMENT,
+idPersona INT NOT NULL,
+fecha DATETIME NOT NULL,
+cantidad DECIMAL NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE Proveedores (
+id INT NOT NULL AUTO_INCREMENT,
+idPersona INT NOT NULL,
+nombreEmpresa VARCHAR(30) NOT NULL,
+telefono INT NOT NULL,
+direccion VARCHAR(40) NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE Articulos (
+id INT NOT NULL AUTO_INCREMENT,
+descripcion VARCHAR(30) NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE ArticuloProveedores (
+id INT NOT NULL AUTO_INCREMENT,
+idProveedor INT NOT NULL,
+idArticulo INT NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE Productos (
+id INT NOT NULL AUTO_INCREMENT,
+idProveedor INT NOT NULL,
+idArticulo INT NOT NULL,
+descripcion VARCHAR(30) NOT NULL,
+precio DECIMAL NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE Tienda (
+id INT NOT NULL AUTO_INCREMENT,
+idProducto INT NOT NULL,
+estado BOOLEAN NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE Ventas (
+id INT NOT NULL AUTO_INCREMENT,
+idFactura INT NOT NULL,
+idProducto INT NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE Facturas (
+id INT NOT NULL AUTO_INCREMENT,
+idPersona INT NOT NULL,
+impuesto INT NOT NULL,
+fecha DATETIME NOT NULL,
+total DECIMAL NOT NULL,
+PRIMARY KEY (id)
+);
+
+ALTER TABLE Personas ADD FOREIGN KEY (idGenero) REFERENCES Generos(id);
+ALTER TABLE Personas ADD FOREIGN KEY (idEstado) REFERENCES Estados(id);
+ALTER TABLE Personas ADD FOREIGN KEY (idRol) REFERENCES Roles(id);
+ALTER TABLE AlumnosCursos ADD FOREIGN KEY (idPersona) REFERENCES Personas(id);
+ALTER TABLE AlumnosCursos ADD FOREIGN KEY (idCurso) REFERENCES Cursos(id);
+ALTER TABLE AlumnosRepeticion ADD FOREIGN KEY (idPersona) REFERENCES Personas(id);
+ALTER TABLE Notas ADD FOREIGN KEY (idPersona) REFERENCES Personas(id);
+ALTER TABLE Notas ADD FOREIGN KEY (idMateria) REFERENCES Materias(id);
+ALTER TABLE Notas ADD FOREIGN KEY (idParcial) REFERENCES Parciales(id);
+ALTER TABLE MateriasCurso ADD FOREIGN KEY (idMateria) REFERENCES Materias(id);
+ALTER TABLE MateriasCurso ADD FOREIGN KEY (idCurso) REFERENCES Cursos(id);
+ALTER TABLE DocenteMaterias ADD FOREIGN KEY (idPersona) REFERENCES Personas(id);
+ALTER TABLE DocenteMaterias ADD FOREIGN KEY (idMateria) REFERENCES Materias(id);
+ALTER TABLE Cobros ADD FOREIGN KEY (idPersona) REFERENCES Personas(id);
+ALTER TABLE Cobros ADD FOREIGN KEY (idConcepto) REFERENCES Conceptos(id);
+ALTER TABLE Pagos ADD FOREIGN KEY (idPersona) REFERENCES Personas(id);
+ALTER TABLE Proveedores ADD FOREIGN KEY (idPersona) REFERENCES Personas(id);
+ALTER TABLE ArticuloProveedores ADD FOREIGN KEY (idProveedor) REFERENCES Proveedores(id);
+ALTER TABLE ArticuloProveedores ADD FOREIGN KEY (idArticulo) REFERENCES Articulos(id);
+ALTER TABLE Productos ADD FOREIGN KEY (idProveedor) REFERENCES Proveedores(id);
+ALTER TABLE Productos ADD FOREIGN KEY (idArticulo) REFERENCES Articulos(id);
+ALTER TABLE Tienda ADD FOREIGN KEY (idProducto) REFERENCES Productos(id);
+ALTER TABLE Ventas ADD FOREIGN KEY (idFactura) REFERENCES Facturas(id);
+ALTER TABLE Ventas ADD FOREIGN KEY (idProducto) REFERENCES Productos(id);
