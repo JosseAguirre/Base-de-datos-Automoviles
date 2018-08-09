@@ -1,0 +1,49 @@
+CREATE DATABASE Almacen DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+
+USE Almacen;
+
+CREATE TABLE Personas (
+ id INT NOT NULL AUTO_INCREMENT,
+ nombre VARCHAR(60) NOT NULL,
+ apellido VARCHAR(60) NOT NULL,
+ email VARCHAR(60) NOT NULL,
+ idRol INT NOT NULL,
+ PRIMARY KEY (id)
+ );
+ 
+ CREATE TABLE Roles (
+ id INT NOT NULL AUTO_INCREMENT,
+ cargo VARCHAR(30) NOT NULL,
+ descipcion VARCHAR(30) NOT NULL,
+ PRIMARY KEY (id)
+ );
+ 
+ CREATE TABLE Distriubidores (
+ id INT NOT NULL AUTO_INCREMENT,
+ compania VARCHAR(30) NOT NULL,
+ direccion VARCHAR(60) NOT NULL,
+ telefono INT NOT NULL,
+ PRIMARY KEY (id)
+ );
+ 
+ CREATE TABLE Marcas (
+ id INT NOT NULL AUTO_INCREMENT,
+ marca VARCHAR(30) NOT NULL,
+ idDistriubidor INT NOT NULL,
+ PRIMARY KEY (id)
+ );
+ 
+ CREATE TABLE Productos (
+ id INT NOT NULL AUTO_INCREMENT,
+ descripcion VARCHAR(30) NOT NULL,
+ idMarca INT NOT NULL,
+ idTipoProducto INT NOT NULL,
+ PRIMARY KEY (id)
+ );
+ 
+ CREATE TABLE TipoProductos (
+ id INT NOT NULL AUTO_INCREMENT,
+ detalle VARCHAR(30) NOT NULL,
+ idDistriubidor INT NOT NULL,
+ PRIMARY KEY (id)
+ );
